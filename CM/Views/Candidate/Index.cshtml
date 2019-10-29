@@ -1,0 +1,286 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<section class="content-header">
+
+    <ol class="breadcrumb">
+        <li>
+            <p>
+                <h3> <button class="btn btn-vimeo text-warning">@Html.ActionLink("Upload", "Upload", "ImportData")</button></h3>
+                @Html.Hidden("page", (object)ViewBag.page)
+                @Html.Hidden("sortProperty", (object)ViewBag.sortProperty)
+                @Html.Hidden("sortOrder", (object)ViewBag.sortOrder)
+                @Html.Hidden("size", (object)ViewBag.pageSize)
+            </p>
+        </li>
+    </ol>
+
+    <h2>Ứng viên</h2>
+
+
+</section>
+@{
+    Html.RenderPartial("_SimpleReport");
+}
+
+@{
+    Html.RenderPartial("_Search");
+}
+
+@{
+    Html.RenderPartial("_List");
+}
+
+<script>
+    $(document).ready(function () {
+        loadData();
+    });
+
+    //Load Data function
+    function loadData() {
+        $.ajax({
+            url: "/Candidate/List",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.Account + '</td>';
+                    html += '<td>' + item.National_id + '</td>';
+                    html += '<td>' + item.CandidateName + '</td>';
+                    html += '<td>' + item.DOB + '</td>';
+                    html += '<td>' + item.Gender + '</td>';
+                    html += '<td>' + item.Email + '</td>';
+                    html += '<td>' + item.Phone + '</td>';
+                    //html += '<td styles={}>' + item.Facebook + '</td>';
+                    //html += '<td>' + item.GraduationDate + '</td>';
+                    //html += '<td>' + item.WorkingTimeAvaiable + '</td>';
+                    //html += '<td>' + item.Skill + '</td>';
+                    //html += '<td>' + item.GPA + '</td>';
+                    html += '<td><a href="#" onclick="return getbyID(' + item.id + ')"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"</span> Edit </button></a> | <a href="#" onclick="Delele(' + item.id + ')"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span>Trash </button></a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Add Data Function
+    function Add() {
+        /* var res = validate();
+         if (res == false) {
+             return false;
+         }*/
+        var empObj = {
+            Account: $('#Account').val(),
+            National_id: $('#National_id').val(),
+            CandidateName: $('#CandidateName').val(),
+            DOB: $('#DOB').val(),
+            Gender: $('#Gender').val(),
+            Email: $('#Email').val(),
+            Phone: $('#Phone').val(),
+            Facebook: $('#Facebook').val(),
+            GraduationDate: $('#GraduationDate').val(),
+            WorkingTimeAvaiable: $('#WorkingTimeAvaiable').val(),
+            Skill: $('#Skill').val(),
+            GPA: $('#GPA').val(),
+            Faculty_of_University_id: "1",
+        };
+        $.ajax({
+            url: "/Candidate/Add",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                alert("Data has been added successfully.");
+                loadData();
+                $('#myModal').modal('hide');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    ////Function for getting the Data Based upon Employee ID
+    function getbyID(EmpID) {
+        $('#Account').css('border-color', 'lightgrey');
+        $('#National_id').css('border-color', 'lightgrey');
+        $('#CandidateName').css('border-color', 'lightgrey');
+        $('#DOB').css('border-color', 'lightgrey');
+        $('#Gender').css('border-color', 'lightgrey');
+        $('#Email').css('border-color', 'lightgrey');
+        $('#Phone').css('border-color', 'lightgrey');
+        $('#Facebook').css('border-color', 'lightgrey');
+        $('#GraduationDate').css('border-color', 'lightgrey');
+        $('#WorkingTimeAvaiable').css('border-color', 'lightgrey');
+        $('#Skill').css('border-color', 'lightgrey');
+        $('#GPA').css('border-color', 'lightgrey');
+        $.ajax({
+            url: "/Candidate/GetbyID/" + EmpID,
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                $('#Id').val(result.id);
+                $('#Account').val(result.Account);
+                $('#National_id').val(result.National_id);
+                $('#CandidateName').val(result.CandidateName);
+                $('#DOB').val(result.DOB);
+                $('#Gender').val(result.Gender);
+                $('#Email').val(result.Email);
+                $('#Phone').val(result.Phone);
+                $('#Facebook').val(result.Facebook);
+                $('#GraduationDate').val(result.GraduationDate);
+                $('#WorkingTimeAvaiable').val(result.WorkingTimeAvaiable);
+                $('#Skill').val(result.Skill);
+                $('#GPA').val(result.GPA);
+
+
+                $('#myModal').modal('show');
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+    ////function for updating employee's record
+    function Update() {
+       /* var res = validate();
+        if (res == false) {
+            return false;
+        }*/
+        var empObj = {
+            id:$('#Id').val(),
+            Account: $('#Account').val(),
+            National_id: $('#National_id').val(),
+            CandidateName: $('#CandidateName').val(),
+            DOB: $('#DOB').val(),
+            Gender: $('#Gender').val(),
+            Email: $('#Email').val(),
+            Phone: $('#Phone').val(),
+            Facebook: $('#Facebook').val(),
+            GraduationDate: $('#GraduationDate').val(),
+            WorkingTimeAvaiable: $('#WorkingTimeAvaiable').val(),
+            Skill: $('#Skill').val(),
+            GPA: $('#GPA').val(),
+            Faculty_of_University_id: "1"
+        };
+        $.ajax({
+            url: "/Candidate/Update",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {                
+                loadData();
+                alert("Data has been update successfully.");
+                $('#myModal').modal('hide');
+                id: $('#Id').val("");
+                Account: $('#Account').val("");
+                National_id: $('#National_id').val("");
+                CandidateName: $('#CandidateName').val("");
+                DOB: $('#DOB').val("");
+                Gender: $('#Gender').val("");
+                Email: $('#Email').val("");
+                Phone: $('#Phone').val("");
+                Facebook: $('#Facebook').val("");
+                GraduationDate: $('#GraduationDate').val("");
+                WorkingTimeAvaiable: $('#WorkingTimeAvaiable').val("");
+                Skill: $('#Skill').val("");
+                GPA: $('#GPA').val("");
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    ////function for deleting employee's record
+    function Delele(ID) {
+        var ans = confirm("Are you sure you want to delete this Record?");
+        if (ans) {
+            $.ajax({
+                url: "/Candidate/Delete/" + ID,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    loadData();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    }
+
+    ////Function for clearing the textboxes
+    function clearTextBox() {
+        Account: $('#Account').val("");
+        National_id: $('#National_id').val("");
+        CandidateName: $('#CandidateName').val("");
+        DOB: $('#DOB').val("");
+        Gender: $('#Gender').val("");
+        Email: $('#Email').val("");
+        Phone: $('#Phone').val("");
+        Facebook: $('#Facebook').val("");
+        GraduationDate: $('#GraduationDate').val("");
+        WorkingTimeAvaiable: $('#WorkingTimeAvaiable').val("");
+        Skill: $('#Skill').val("");
+        GPA: $('#GPA').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+        //$('#Name').css('border-color', 'lightgrey');
+        //$('#Age').css('border-color', 'lightgrey');
+        //$('#State').css('border-color', 'lightgrey');
+        //$('#Country').css('border-color', 'lightgrey');
+    }
+////Valdidation using jquery
+//function validate() {
+//    var isValid = true;
+//    if ($('#Name').val().trim() == "") {
+//        $('#Name').css('border-color', 'Red');
+//        isValid = false;
+//    }
+//    else {
+//        $('#Name').css('border-color', 'lightgrey');
+//    }
+//    if ($('#Age').val().trim() == "") {
+//        $('#Age').css('border-color', 'Red');
+//        isValid = false;
+//    }
+//    else {
+//        $('#Age').css('border-color', 'lightgrey');
+//    }
+//    if ($('#State').val().trim() == "") {
+//        $('#State').css('border-color', 'Red');
+//        isValid = false;
+//    }
+//    else {
+//        $('#State').css('border-color', 'lightgrey');
+//    }
+//    if ($('#Country').val().trim() == "") {
+//        $('#Country').css('border-color', 'Red');
+//        isValid = false;
+//    }
+//    else {
+//        $('#Country').css('border-color', 'lightgrey');
+//    }
+//    return isValid;
+//}
+</script>
+

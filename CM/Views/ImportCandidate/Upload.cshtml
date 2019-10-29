@@ -1,0 +1,472 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Data;
+@using CM.Models
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Upload Candidate From Excel File</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <!--upload form-->
+        @using (Ajax.BeginForm("UploadData", "ImportCandidate", new AjaxOptions
+        {
+            OnSuccess = "OnSuccess",
+            OnFailure = "OnFailure"@*, LoadingElementId = "progress"*@ }, new { enctype = "multipart/form-data", id = "import-form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            @*<form action="/ImportEvent/UploadData" enctype="multipart/form-data" id="import-form" method="post">*@
+            <div class="form-group">
+                <input type="file" id="dataFile" name="upload" />
+            </div>
+            
+
+            <div class="form-group">
+                <input id="upload-btn" type="submit" value="Upload" class="btn btn-default" />
+            </div>
+            @*</form>*@
+        }
+        <!--my tab to display event success upload-->
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#success-tab"><span id="success-span" class="glyphicon glyphicon-ok text-green" style="width:150px;font-size: 18px;text-align:center"><b>Success(0)</b></span></a></li>
+            <li><a data-toggle="tab" href="#warning-tab"><span id="warning-span" class="glyphicon glyphicon-alert text-yellow" style="width:150px;font-size: 18px;text-align:center"><b>Warning(0)</b></span></a></li>
+            <li><a data-toggle="tab" href="#error-tab"><span id="error-span" class="glyphicon glyphicon-remove text-red" style="width:150px;font-size: 18px;text-align:center"><b>Error(0)</b></span></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="success-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade in active">
+                <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                    <div class="col-sm-12" style="overflow-x:scroll">
+                        <table id="success-data" class="table table-bordered table-hover dataTable" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th>National_id</th>
+                                    <th>Account</th>
+                                    <th>CandidateName</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Facebook</th>
+                                    <th>GraduationDate</th>
+                                    <th>WorkingTimeAvaiable</th>
+                                    <th>Skill</th>
+                                    <th>GPA</th>
+                                    <th>Faculty_of_University_id</th>
+                                    <th>Faculty_of_University</th>
+                                    <th>Candidate_in_Event</th>
+                                    <th>CandidateHistories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="warning-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade">
+                <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                    <div class="col-sm-12" style="overflow-x:scroll">
+                        <table id="warning-data" class="table table-bordered table-hover dataTable" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th>National_id</th>
+                                    <th>Account</th>
+                                    <th>CandidateName</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Facebook</th>
+                                    <th>GraduationDate</th>
+                                    <th>WorkingTimeAvaiable</th>
+                                    <th>Skill</th>
+                                    <th>GPA</th>
+                                    <th>Faculty_of_University_id</th>
+                                    <th>Faculty_of_University</th>
+                                    <th>Candidate_in_Event</th>
+                                    <th>CandidateHistories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="error-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade">
+                <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                    <div class="col-sm-12" style="overflow-x:scroll">
+                        <table id="error-data" class="table table-bordered table-hover dataTable" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th>National_id</th>
+                                    <th>Account</th>
+                                    <th>CandidateName</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Facebook</th>
+                                    <th>GraduationDate</th>
+                                    <th>WorkingTimeAvaiable</th>
+                                    <th>Skill</th>
+                                    <th>GPA</th>
+                                    <th>Faculty_of_University_id</th>
+                                    <th>Faculty_of_University</th>
+                                    <th>Candidate_in_Event</th>
+                                    <th>CandidateHistories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.box-body -->
+</div>
+<script type="text/javascript">
+    function OnSuccess(response) {
+        console.log('success upload');
+        jsondata = $.parseJSON(response);
+        var ns = 0;
+        var nw = 0;
+        var ne = 0;
+        console.log(jsondata);
+        for (var i in jsondata) {
+            console.log(jsondata[i]);
+            if (jsondata[i].eventType == 0) {
+                ShowDataToTable(jsondata[i], '#success-data', i % 2);
+                ns++;
+            } else if (jsondata[i].eventType == 1) {
+                ShowDataToTable(jsondata[i], '#warning-data', i % 2);
+                nw++;
+            } else {
+                ShowDataToTable(jsondata[i], '#error-data', i % 2);
+                ne++;
+            }
+        }
+        $('#success-span b').text('Success(' + ns + ')');
+        $('#warning-span b').text('Warning(' + nw + ')');
+        $('#error-span b').text('Error(' + ne + ')');
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+    function ShowDataToTable(data, tableId, i) {
+        var row$ = $('<tr role="row"/>');
+        if (i == 0) {
+            row$.addClass("odd");
+        } else {
+            row$.addClass("even");
+        }
+         if (data.candidateType == 2 && data.isErrorNational_id) {
+            row$.append($('<td/>').html(data.National_id).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.National_id));
+        }
+            if (data.candidateType == 2 && data.isErrorAccount) {
+            row$.append($('<td/>').html(data.Account).addClass("bg-red text-light"));
+            } else {
+                row$.append($('<td/>').html(data.Account));
+        }
+            if (data.candidateType == 2 && data.isErrorCandidateName) {
+            row$.append($('<td/>').html(data.CandidateName).addClass("bg-red text-light"));
+            } else {
+                row$.append($('<td/>').html(data.CandidateName));
+        }
+            if (data.candidateType == 2 && data.isErrorDOB) {
+            row$.append($('<td/>').html(data.DOB).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.DOB));
+        }
+            if (data.candidateType == 2 && data.isErrorGender) {
+            row$.append($('<td/>').html(data.Gender).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.Gender));
+        }
+            if (data.candidateType == 2 && data.isErrorEmail) {
+            row$.append($('<td/>').html(data.Email).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.Email));
+        }
+            if (data.candidateType == 2 && data.isErrorPhone) {
+            row$.append($('<td/>').html(data.Phone).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.Phone));
+        }
+            if (data.candidateType == 2 && data.isErrorFacebook) {
+            row$.append($('<td/>').html(data.Facebook).addClass("bg-red text-light"));
+         } else {
+             row$.append($('<td/>').html(data.Facebook));
+        }
+            if (data.candidateType == 2 && data.isErrorGraduationDate) {
+            row$.append($('<td/>').html(data.GraduationDate).addClass("bg-red text-light"));
+            } else {
+                row$.append($('<td/>').html(data.GraduationDate));
+        }
+        if (data.candidateType == 2 && data.isErrorWorkingTimeAvaiable) {
+            row$.append($('<td/>').html(data.WorkingTimeAvaiable).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.WorkingTimeAvaiable));
+        }
+            if (data.candidateType == 2 && data.isErrorSkill) {
+            row$.append($('<td/>').html(data.Skill).addClass("bg-red text-light"));
+            } else {
+                row$.append($('<td/>').html(data.Skill));
+        }
+
+         if (data.eventType == 2 && data.isErrorFaculty_of_University_id) {
+            row$.append($('<td/>').html(data.Faculty_of_University_id).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.Faculty_of_University_id));
+        }
+         if (data.eventType == 2 && data.isErrorFaculty_of_University) {
+            row$.append($('<td/>').html(data.Faculty_of_University).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.Faculty_of_University));
+        }
+        if (data.eventType == 2 && data.isErrorCandidate_in_Event) {
+            row$.append($('<td/>').html(data.Candidate_in_Event).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.Candidate_in_Event));
+        }
+        if (data.eventType == 2 && data.isErrorCandidateHistories) {
+            row$.append($('<td/>').html(data.CandidateHistories).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.CandidateHistories));
+        }
+        if (data.eventType == 2 && data.isErrorGPA) {
+            row$.append($('<td/>').html(data.GPA).addClass("bg-red text-light"));
+        } else {
+            row$.append($('<td/>').html(data.GPA));
+        }
+        //row$.append($('<td/>').html(data.feedback));
+        //row$.append($('<td/>').html(data.feedbackContent));
+        //row$.append($('<td/>').html(data.feedbackTeacher));
+        //row$.append($('<td/>').html(data.feedbackOrganization));
+        //row$.append($('<td/>').html(data.note));
+        $(tableId).children('tbody').append(row$);
+    }
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    function ConvertToDate(datetime) {
+        var day = new Date(datetime)
+        return monthNames[day.getMonth()] + '-' + day.getDay() + '-' + day.getFullYear();
+    }
+</script>
+@*<script>
+        var MyAppUrlSettings = {
+            MyUsefulUrl: '@Url.Action("UploadData","ImportEvent",null)'
+        }
+        $(document).ready(function () {
+            $('#import-form').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData($('form')[0]);
+                //console.log('import click');
+                //$.each($('#dataFile')[0].files, function (i, file) {
+                //    formData.append('file-' + i, file);
+                //    console.log('read ' + i);
+                //});
+                $.ajax({
+                    type: "POST",
+                    url: MyAppUrlSettings.MyUsefulUrl,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //beforeSend: function(){},
+                    //dataType: ,
+                    data: formData,
+                    xhr: function () {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) { // Check if upload property exists
+                            // Progress code if you want
+                            console.log('is upload');
+                            console.log(formData);
+                        }
+                        return myXhr;
+                    },
+                    error: function (data) {
+                        console.log('upload error');
+                    },
+                    success: function (data) {
+                        console.log('success upload');
+                        //$.ajax({
+                        //    type: "GET",
+                        //    url: '/ImportEvent/GetImportData',
+                        //    success: function (result) {
+                        //        $.each(result, function (i, j) {
+                        //            if (j[i].eventType == 1) {
+                        //                var row$ = $('<tr/>');
+                        //                row$.append($('<td/>').html(j[i].site));
+                        //                row$.append($('<td/>').html(j[i].courseCode));
+                        //                row$.append($('<td/>').html(j[i].courseName));
+                        //                row$.append($('<td/>').html(j[i].subjectType));
+                        //                row$.append($('<td/>').html(j[i].subSubjectType));
+                        //                row$.append($('<td/>').html(j[i].formatType));
+                        //                row$.append($('<td/>').html(j[i].supplierPartner));
+                        //                row$.append($('<td/>').html(j[i].plannedStartDate));
+                        //                row$.append($('<td/>').html(j[i].plannedEndDate));
+                        //                row$.append($('<td/>').html(j[i].plannedExpense));
+                        //                row$.append($('<td/>').html(j[i].actualStartDate));
+                        //                row$.append($('<td/>').html(j[i].actualEndDate));
+                        //                row$.append($('<td/>').html(j[i].actualExpense));
+                        //                row$.append($('<td/>').html(j[i].budgetCode));
+                        //                row$.append($('<td/>').html(j[i].status));
+                        //                row$.append($('<td/>').html(j[i].feedback));
+                        //                row$.append($('<td/>').html(j[i].feedbackContent));
+                        //                row$.append($('<td/>').html(j[i].feedbackTeacher));
+                        //                row$.append($('<td/>').html(j[i].feedbackOrganization));
+                        //                row$.append($('<td/>').html(j[i].note));
+                        //                $('#success-data').append(row$);
+                        //            }
+                        //        });
+                        //    }
+                        //});
+                    },
+                    //error: function (xhr, status, p3, p4) {
+                    //    var err = "Error " + " " + status + " " + p3 + " " + p4;
+                    //    if (xhr.responseText && xhr.responseText[0] == "{")
+                    //        err = JSON.parse(xhr.responseText).Message;
+                    //    console.log(err);
+                    //}
+                });
+            });
+        });
+        //var oSuccessTable = $('#success-data').dataTable({
+        //    "bJQueryUI": true,
+        //    "bServerSide": true,
+        //    "sAjaxSource": "/ImportEvent/Upload"
+        //});
+        //$('#upload-btn').submit(function (e) {
+        //    //$.getJSON('/ImportEvent/Upload', null, function (data) { });
+        //    $.ajax({
+        //        url: '/ImportEvent/Upload',
+        //        type: 'POST',
+        //        data: $(this).serialize(),
+        //        success: function (data) {
+        //            $.each(data, function (i, j) {
+        //                if (j[i].eventType == 1) {
+        //                    var row$ = $('<tr/>');
+        //                    row$.append($('<td/>').html(j[i].site));
+        //                    row$.append($('<td/>').html(j[i].courseCode));
+        //                    row$.append($('<td/>').html(j[i].courseName));
+        //                    row$.append($('<td/>').html(j[i].subjectType));
+        //                    row$.append($('<td/>').html(j[i].subSubjectType));
+        //                    row$.append($('<td/>').html(j[i].formatType));
+        //                    row$.append($('<td/>').html(j[i].supplierPartner));
+        //                    row$.append($('<td/>').html(j[i].plannedStartDate));
+        //                    row$.append($('<td/>').html(j[i].plannedEndDate));
+        //                    row$.append($('<td/>').html(j[i].plannedExpense));
+        //                    row$.append($('<td/>').html(j[i].actualStartDate));
+        //                    row$.append($('<td/>').html(j[i].actualEndDate));
+        //                    row$.append($('<td/>').html(j[i].actualExpense));
+        //                    row$.append($('<td/>').html(j[i].budgetCode));
+        //                    row$.append($('<td/>').html(j[i].status));
+        //                    row$.append($('<td/>').html(j[i].feedback));
+        //                    row$.append($('<td/>').html(j[i].feedbackContent));
+        //                    row$.append($('<td/>').html(j[i].feedbackTeacher));
+        //                    row$.append($('<td/>').html(j[i].feedbackOrganization));
+        //                    row$.append($('<td/>').html(j[i].note));
+        //                    $('#success-data').append(row$);
+        //                }
+        //            });
+        //        }
+        //    });
+        //});
+
+    </script>*@
+@*<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+            <div class="col-sm-12" style="overflow-x:scroll">
+                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                    <thead>
+                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Rendering engine</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Browser</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Engine version</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">CSS grade</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Firefox 1.0</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Firefox 1.5</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Firefox 2.0</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Firefox 3.0</td>
+                            <td>Win 2k+ / OSX.3+</td>
+                            <td>1.9</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Camino 1.0</td>
+                            <td>OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Camino 1.5</td>
+                            <td>OSX.3+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Netscape 7.2</td>
+                            <td>Win 95+ / Mac OS 8.6-9.2</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Netscape Browser 8</td>
+                            <td>Win 98SE+</td>
+                            <td>1.7</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Netscape Navigator 9</td>
+                            <td>Win 98+ / OSX.2+</td>
+                            <td>1.8</td>
+                            <td>A</td>
+                        </tr>
+                        <tr role="row" class="even">
+                            <td class="sorting_1">Gecko</td>
+                            <td>Mozilla 1.0</td>
+                            <td>Win 95+ / OSX.1+</td>
+                            <td>1</td>
+                            <td>A</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><th rowspan="1" colspan="1">Rendering engine</th><th rowspan="1" colspan="1">Browser</th><th rowspan="1" colspan="1">Platform(s)</th><th rowspan="1" colspan="1">Engine version</th><th rowspan="1" colspan="1">CSS grade</th></tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>
+    </div>*@

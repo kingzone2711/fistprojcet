@@ -1,0 +1,220 @@
+﻿@{
+	ViewBag.Title = "Upload";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Data;
+@using CM.Models
+
+
+<h2>Import Data</h2>
+@using (Html.BeginForm("Upload", "ImportData", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary()
+
+	<div class="form-group">
+		<input type="file" id="dataFile" name="upload" />
+	</div>
+
+	<div class="form-group">
+		<input type="submit" value="Upload" class="btn btn-default" />
+	</div>
+}
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#success-tab"><span id="success-span" class="glyphicon glyphicon-ok text-green" style="width:150px;font-size: 18px;text-align:center"><b>Success(0)</b></span></a></li>
+	<li><a data-toggle="tab" href="#warning-tab"><span id="warning-span" class="glyphicon glyphicon-alert text-yellow" style="width:150px;font-size: 18px;text-align:center"><b>Warning(0)</b></span></a></li>
+	<li><a data-toggle="tab" href="#error-tab"><span id="error-span" class="glyphicon glyphicon-remove text-red" style="width:150px;font-size: 18px;text-align:center"><b>Error(0)</b></span></a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="success-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade in active">
+		<div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div>
+		<div class="row">
+			<div class="col-sm-12" style="overflow-x:scroll">
+				<table id="success-data" class="table table-bordered table-hover dataTable" role="grid">
+					<thead>
+						<tr role="row">
+							<th>name</th>
+							<th>university</th>
+							<th>faculty</th>
+							<th>gender</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Course_code</th>
+							<th>Site</th>
+							<th>Course_name</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="warning-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade">
+		<div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+			<div class="col-sm-12" style="overflow-x:scroll">
+				<table id="warning-data" class="table table-bordered table-hover dataTable" role="grid">
+					<thead>
+						<tr role="row">
+							<th>name</th>
+							<th>university</th>
+							<th>faculty</th>
+							<th>gender</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Course_code</th>
+							<th>Site</th>
+							<th>Course_name</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="error-tab" class="dataTables_wrapper form-inline dt-bootstrap tab-pane fade">
+		<div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+			<div class="col-sm-12" style="overflow-x:scroll">
+				<table id="error-data" class="table table-bordered table-hover dataTable" role="grid">
+					<thead>
+						<tr role="row">
+							<th>name</th>
+							<th>university</th>
+							<th>faculty</th>
+							<th>gender</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Course_code</th>
+							<th>Site</th>
+							<th>Course_name</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+@*<script type="text/javascript">
+	function OnSuccess(response) {
+		$('#success-data tbody').replaceWith(document.createElement('tbody'));
+		$('#warning-data tbody').replaceWith(document.createElement('tbody'));
+		$('#error-data tbody').replaceWith(document.createElement('tbody'));
+		console.log('success upload');
+		jsondata = $.parseJSON(response);
+		var ns = 0;
+		var nw = 0;
+		var ne = 0;
+		console.log(jsondata);
+		for (var i in jsondata) {
+			console.log(jsondata[i]);
+			if (jsondata[i].eventType == 0) {
+				ShowDataToTable(jsondata[i], '#success-data', i % 2);
+				ns++;
+			} else if (jsondata[i].eventType == 1) {
+				ShowDataToTable(jsondata[i], '#warning-data', i % 2);
+				nw++;
+			} else {
+				ShowDataToTable(jsondata[i], '#error-data', i % 2);
+				ne++;
+			}
+		}
+		$('#success-span b').text('Success(' + ns + ')');
+		$('#warning-span b').text('Warning(' + nw + ')');
+		$('#error-span b').text('Error(' + ne + ')');
+	}
+	function OnFailure(response) {
+		alert("Error occured.");
+	}
+	function ShowDataToTable(data, tableId, i) {
+		var row$ = $('<tr role="row"/>');
+		if (i == 0) {
+			row$.addClass("odd");
+		} else {
+			row$.addClass("even");
+		}
+		if (data.eventType == 2 && data.isErrorSite) {
+			row$.append($('<td/>').html(data.site).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.site))
+		}
+		row$.append($('<td/>').html(data.courseCode));
+		if (data.eventType == 1) {
+			row$.append($('<td/>').html(data.changeCourseCode).addClass("bg-yellow"));
+		}
+		if (data.eventType == 2 && data.isErrorCourseName) {
+			row$.append($('<td/>').html(data.courseName).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.courseName));
+		}
+		if (data.eventType == 2 && data.isErrorSubjectType) {
+			row$.append($('<td/>').html(data.subjectType).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.subjectType));
+		}
+		if (data.eventType == 2 && data.isErrorSubSubjectType) {
+			row$.append($('<td/>').html(data.subSubjectType).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.subSubjectType));
+		}
+		if (data.eventType == 2 && data.isErrorFormatType) {
+			row$.append($('<td/>').html(data.formatType).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.formatType));
+		}
+		if (data.eventType == 2 && data.isErrorSupplierPartner) {
+			row$.append($('<td/>').html(data.supplierPartner).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.supplierPartner));
+		}
+		if (data.eventType == 2 && data.isErrorPlannedStartDate) {
+			row$.append($('<td/>').html(ConvertToDate(data.plannedStartDate)).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(ConvertToDate(data.plannedStartDate)));
+		}
+		if (data.eventType == 2 && data.isErrorPlannedEndDate) {
+			row$.append($('<td/>').html(ConvertToDate(data.plannedEndDate)).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(ConvertToDate(data.plannedEndDate)));
+		}
+		row$.append($('<td/>').html(data.plannedExpense));
+		if (data.eventType == 2 && data.isErrorActualStartDate) {
+			row$.append($('<td/>').html(ConvertToDate(data.actualStartDate)).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(ConvertToDate(data.actualStartDate)));
+		}
+		if (data.eventType == 2 && data.isErrorActualEndDate) {
+			row$.append($('<td/>').html(ConvertToDate(data.actualEndDate)).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(ConvertToDate(data.actualEndDate)));
+		}
+		row$.append($('<td/>').html(data.actualExpense));
+		row$.append($('<td/>').html(data.budgetCode));
+		if (data.eventType == 2 && data.isErrorStatus) {
+			row$.append($('<td/>').html(data.status).addClass("bg-red text-light"));
+		} else {
+			row$.append($('<td/>').html(data.status));
+		}
+		//row$.append($('<td/>').html(data.feedback));
+		//row$.append($('<td/>').html(data.feedbackContent));
+		//row$.append($('<td/>').html(data.feedbackTeacher));
+		//row$.append($('<td/>').html(data.feedbackOrganization));
+		//row$.append($('<td/>').html(data.note));
+		$(tableId).children('tbody').append(row$);
+	}
+	const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	function ConvertToDate(datetime) {
+		var day = new Date(datetime)
+		if (day == null) {
+			return "";
+		}
+		return monthNames[day.getMonth()] + '-' + day.getDay() + '-' + day.getFullYear();
+	}
+</script>*@
+
+
+

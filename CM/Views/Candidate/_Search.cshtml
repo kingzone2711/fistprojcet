@@ -1,0 +1,202 @@
+﻿
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Search</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body" style="">
+        <p>
+            @using (Html.BeginForm())
+            {
+            <div class="row">
+                <div class="col-lg-1">
+                    <h4>Tên: </h4>
+                    <br />
+                    <h4>Site:</h4>
+                    <br />
+                    <h4>Trường:</h4>
+                </div>
+
+
+                <div class="col-lg-4 container-fluid">
+                    <div>
+
+                        <input list="browsers" class="form-control" name="browser">
+                        @*<datalist id="browsers"></datalist>*@
+                    </div>
+                    <br />
+                    <div>
+
+                        <input list="site" class="form-control" name="site">
+                        <datalist id="site">
+                            <option value="HCM"></option>
+                            <option value="HN"></option>
+                            <option value="DN"></option>
+                        </datalist>
+                    </div>
+                    <br />
+                    <div>
+
+                        <input list="university" class="form-control" name="university">
+                        <datalist id="university"></datalist>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    <h4>Tên chương trình:</h4>
+                    <br />
+                    <h4>Loại chương trình:</h4>
+                    <br />
+                    <h4>Trạng thái:</h4>
+                </div>
+
+
+                <div class="col-lg-4 container-fluid">
+                    <div>
+
+                        <input list="coursename" class="form-control" name="coursename">
+                        <datalist id="coursename">
+                            <option value="INTERNSHIP"></option>
+                            <option value="FSOFT TOUR"></option>
+                            <option value="Global Software Talent"></option>
+                            <option value="GST LITE"></option>
+                            <option value="THESIS"></option>
+                        </datalist>
+                    </div>
+                    <br />
+                    <div>
+
+                        <input list="subjecttype" class="form-control" name="subjecttype">
+                        <datalist id="subjecttype"> </datalist>
+                    </div>
+                    <br />
+                    <div>
+
+                        <input list="status" class="form-control" name="status">
+                        <datalist id="status">
+                            <option value="Active"></option>
+                            <option value="Cancel"></option>
+                            <option value="Drop-Out"></option>
+                            <option value="Failed"></option>
+                            <option value="Passed"></option>
+                            <option value="Done"></option>
+                        </datalist>
+                    </div>
+                </div>
+            </div>
+                <br />
+            <div class="row">
+                <div class="col-lg-10">
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-info"> Search</button>
+                </div>
+            </div>
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        </p>
+        @* body *@
+
+    </div>
+    <!-- /.box-body -->
+
+    <!-- /.box-footer-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>$(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+  })</script>
+

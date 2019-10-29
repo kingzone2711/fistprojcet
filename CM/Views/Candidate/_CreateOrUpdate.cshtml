@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<CM.Models.Candidate>
+@using PagedList.Mvc;
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dissmiss="modal"><span aria-hidden="true">&times;</span></button>*@
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Candidate</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" class="form-control" id="Id" />
+
+                    <div class="form-group">
+                        <label for="Account">Account</label>
+                        <input type="text" class="form-control" id="Account" placeholder="Account" />
+                    </div>
+                    <div class="form-group">
+                        <label for="National_id">National ID</label>
+                        <input type="text" class="form-control" id="National_id" placeholder="National ID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="CandidateName">Name</label>
+                        <input type="text" class="form-control" id="CandidateName" placeholder="Candidate Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="DOB">DOB</label>
+                        <input type="text" class="form-control" id="DOB" placeholder="DOB" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Gender</label>
+                        <input type="text" class="form-control" id="Gender" placeholder="Gender" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="text" class="form-control" id="Email" placeholder="Email" />
+                    </div>
+                    .<div class="form-group">
+                        <label for="Phone">Phone</label>
+                        <input type="text" class="form-control" id="Phone" placeholder="Phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Facebook">Facebook</label>
+                        <input type="text" class="form-control" id="Facebook" placeholder="Facebook" />
+                    </div>
+                    <div class="form-group">
+                        <label for="GraduationDate">GraduationDate</label>
+                        <input type="text" class="form-control" id="GraduationDate" placeholder="GraduationDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="WorkingTimeAvaiable">Working Time Avaiable</label>
+                        <input type="text" class="form-control" id="WorkingTimeAvaiable" placeholder="Working Time Avaiable" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Skill">Skill</label>
+                        <input type="text" class="form-control" id="Skill" placeholder="Skill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="GPA">GPA</label>
+                        <input type="text" class="form-control" id="GPA" placeholder="GPA" />
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

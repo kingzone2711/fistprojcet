@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CM.Models.Sub_Subject_Type>
+
+@{
+    Layout = null;
+    IEnumerable<CM.Models.Event> events = ViewData["Events"] as IEnumerable<CM.Models.Event>;
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("_CreateOrUpdate")'">Create</button>
+        </h3>
+    </div>
+    <div class="box-body no-padding">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 90px">Action</th>
+                    <th>@Html.DisplayNameFor(model => model.SST_Name)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("_CreateOrUpdate", new { id = item.id })'" style="width: 35px">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            @{
+                                bool check = true;
+                                foreach (var i in events)
+                                {
+                                    if (i.SST_id == item.id)
+                                    {
+                                        check = false;
+                                        break;
+                                    }
+                                }
+                                if (check)
+                                {
+                                    <button type="button" class="btn btn-danger btn-sm delete" id="@item.id" style="width: 35px">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.SST_Name)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

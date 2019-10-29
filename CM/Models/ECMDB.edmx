@@ -1,0 +1,1058 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ECMDB1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Enabled" Type="int" Nullable="false" />
+          <Property Name="UserAuthority" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Authorities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="CampuslinkProgram">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CP_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LearningTime" Type="int" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="National_id" Type="int" />
+          <Property Name="CandidateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GraduationDate" Type="date" />
+          <Property Name="WorkingTimeAvaiable" Type="int" Nullable="false" />
+          <Property Name="Skill" Type="nvarchar" MaxLength="50" />
+          <Property Name="GPA" Type="float" />
+          <Property Name="Faculty_of_University_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Candidate_in_Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Event_id" Type="int" Nullable="false" />
+          <Property Name="Candidate_id" Type="int" Nullable="false" />
+          <Property Name="GST_FollowUp" Type="int" />
+          <Property Name="FinalGrade" Type="float" />
+          <Property Name="CompletionLevel" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="CandidateStatus" Type="int" />
+          <Property Name="ContractType" Type="int" />
+          <Property Name="Certificate_id" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Candidate_in_Event_History">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cadidate_in_Event_id" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="date" />
+        </EntityType>
+        <EntityType Name="CandidateHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="Candidate_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Event_id" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProgramCode_id" Type="int" Nullable="false" />
+          <Property Name="SubjectType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SST_id" Type="int" Nullable="false" />
+          <Property Name="FormatType" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlanStartDate" Type="date" />
+          <Property Name="PlanEndDate" Type="date" />
+          <Property Name="PlanedExpense" Type="float" />
+          <Property Name="BudgetCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActualStartDate" Type="date" />
+          <Property Name="ActualEndDate" Type="date" />
+          <Property Name="ActualExpense" Type="float" />
+          <Property Name="TrainingFeedBack" Type="text" />
+          <Property Name="TrainingFeedBackContent" Type="text" />
+          <Property Name="TrainingFeedBackOrganization" Type="text" />
+          <Property Name="EventStatus" Type="int" />
+          <Property Name="Faculty_of_University_id" Type="int" />
+          <Property Name="Note" Type="text" />
+          <Property Name="Site" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CountDay" Type="int" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FacultyCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="FacultyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Faculty_of_University">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Faculty_id" Type="int" Nullable="false" />
+          <Property Name="University_id" Type="int" Nullable="false" />
+          <Property Name="Cooperation_Start_Date" Type="date" />
+          <Property Name="Lv" Type="int" />
+        </EntityType>
+        <EntityType Name="Sub_Subject_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SST_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="University">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Site" Type="nvarchar" MaxLength="10" />
+          <Property Name="UniversityName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UniversityCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="HotKey" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <Association Name="FK_Accounts_Authorities">
+          <End Role="Authorities" Type="Self.Authorities" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authorities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="UserAuthority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Faculty_of_University">
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty_of_University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="Faculty_of_University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event">
+              <PropertyRef Name="Candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event">
+              <PropertyRef Name="Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_History_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Candidate_in_Event_History" Type="Self.Candidate_in_Event_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event_History">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_History_Candidate_in_Event">
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="1" />
+          <End Role="Candidate_in_Event_History" Type="Self.Candidate_in_Event_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate_in_Event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event_History">
+              <PropertyRef Name="Cadidate_in_Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="CandidateHistory" Type="Self.CandidateHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="CandidateHistory">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Accounts1">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="EventHistory" Type="Self.EventHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="EventHistory">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="CandidateHistory" Type="Self.CandidateHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CandidateHistory">
+              <PropertyRef Name="Candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventHistory" Type="Self.EventHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventHistory">
+              <PropertyRef Name="Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_CampuslinkProgram">
+          <End Role="CampuslinkProgram" Type="Self.CampuslinkProgram" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampuslinkProgram">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="ProgramCode_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Faculty_of_University">
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty_of_University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Faculty_of_University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sub_Subject_Type">
+          <End Role="Sub_Subject_Type" Type="Self.Sub_Subject_Type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sub_Subject_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SST_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_of_University_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Faculty_of_University">
+              <PropertyRef Name="Faculty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_of_University_University">
+          <End Role="University" Type="Self.University" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Faculty_of_University">
+              <PropertyRef Name="University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ECMDB1ModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authorities" EntityType="Self.Authorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampuslinkProgram" EntityType="Self.CampuslinkProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate" EntityType="Self.Candidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate_in_Event" EntityType="Self.Candidate_in_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate_in_Event_History" EntityType="Self.Candidate_in_Event_History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateHistory" EntityType="Self.CandidateHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventHistory" EntityType="Self.EventHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faculty_of_University" EntityType="Self.Faculty_of_University" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sub_Subject_Type" EntityType="Self.Sub_Subject_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="University" EntityType="Self.University" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accounts_Authorities" Association="Self.FK_Accounts_Authorities">
+            <End Role="Authorities" EntitySet="Authorities" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Faculty_of_University" Association="Self.FK_Candidate_Faculty_of_University">
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_Candidate" Association="Self.FK_Candidate_in_Event_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_Events" Association="Self.FK_Candidate_in_Event_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_History_Accounts" Association="Self.FK_Candidate_in_Event_History_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Candidate_in_Event_History" EntitySet="Candidate_in_Event_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_History_Candidate_in_Event" Association="Self.FK_Candidate_in_Event_History_Candidate_in_Event">
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+            <End Role="Candidate_in_Event_History" EntitySet="Candidate_in_Event_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Accounts" Association="Self.FK_EventHistory_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CandidateHistory" EntitySet="CandidateHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Accounts1" Association="Self.FK_EventHistory_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="EventHistory" EntitySet="EventHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Candidate" Association="Self.FK_EventHistory_Candidate">
+            <End Role="Candidate" EntitySet="Candidate" />
+            <End Role="CandidateHistory" EntitySet="CandidateHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Events" Association="Self.FK_EventHistory_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventHistory" EntitySet="EventHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_CampuslinkProgram" Association="Self.FK_Events_CampuslinkProgram">
+            <End Role="CampuslinkProgram" EntitySet="CampuslinkProgram" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Faculty_of_University" Association="Self.FK_Events_Faculty_of_University">
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sub_Subject_Type" Association="Self.FK_Events_Sub_Subject_Type">
+            <End Role="Sub_Subject_Type" EntitySet="Sub_Subject_Type" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_of_University_Faculty" Association="Self.FK_Faculty_of_University_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_of_University_University" Association="Self.FK_Faculty_of_University_University">
+            <End Role="University" EntitySet="University" />
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ECMDB1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Enabled" Type="Int32" Nullable="false" />
+          <Property Name="UserAuthority" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Authority" Relationship="Self.FK_Accounts_Authorities" FromRole="Accounts" ToRole="Authorities" />
+          <NavigationProperty Name="Candidate_in_Event_History" Relationship="Self.FK_Candidate_in_Event_History_Accounts" FromRole="Accounts" ToRole="Candidate_in_Event_History" />
+          <NavigationProperty Name="CandidateHistories" Relationship="Self.FK_EventHistory_Accounts" FromRole="Accounts" ToRole="CandidateHistory" />
+          <NavigationProperty Name="EventHistories" Relationship="Self.FK_EventHistory_Accounts1" FromRole="Accounts" ToRole="EventHistory" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Accounts_Authorities" FromRole="Authorities" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="CampuslinkProgram">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CP_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LearningTime" Type="Int32" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_CampuslinkProgram" FromRole="CampuslinkProgram" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="National_id" Type="Int32" />
+          <Property Name="CandidateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GraduationDate" Type="DateTime" Precision="0" />
+          <Property Name="WorkingTimeAvaiable" Type="Int32" Nullable="false" />
+          <Property Name="Skill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GPA" Type="Double" />
+          <Property Name="Faculty_of_University_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Faculty_of_University" Relationship="Self.FK_Candidate_Faculty_of_University" FromRole="Candidate" ToRole="Faculty_of_University" />
+          <NavigationProperty Name="Candidate_in_Event" Relationship="Self.FK_Candidate_in_Event_Candidate" FromRole="Candidate" ToRole="Candidate_in_Event" />
+          <NavigationProperty Name="CandidateHistories" Relationship="Self.FK_EventHistory_Candidate" FromRole="Candidate" ToRole="CandidateHistory" />
+        </EntityType>
+        <EntityType Name="Candidate_in_Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event_id" Type="Int32" Nullable="false" />
+          <Property Name="Candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="GST_FollowUp" Type="Int32" />
+          <Property Name="FinalGrade" Type="Double" />
+          <Property Name="CompletionLevel" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CandidateStatus" Type="Int32" />
+          <Property Name="ContractType" Type="Int32" />
+          <Property Name="Certificate_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK_Candidate_in_Event_Candidate" FromRole="Candidate_in_Event" ToRole="Candidate" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_Candidate_in_Event_Events" FromRole="Candidate_in_Event" ToRole="Events" />
+          <NavigationProperty Name="Candidate_in_Event_History" Relationship="Self.FK_Candidate_in_Event_History_Candidate_in_Event" FromRole="Candidate_in_Event" ToRole="Candidate_in_Event_History" />
+        </EntityType>
+        <EntityType Name="Candidate_in_Event_History">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cadidate_in_Event_id" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Candidate_in_Event_History_Accounts" FromRole="Candidate_in_Event_History" ToRole="Accounts" />
+          <NavigationProperty Name="Candidate_in_Event" Relationship="Self.FK_Candidate_in_Event_History_Candidate_in_Event" FromRole="Candidate_in_Event_History" ToRole="Candidate_in_Event" />
+        </EntityType>
+        <EntityType Name="CandidateHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="Candidate_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_EventHistory_Accounts" FromRole="CandidateHistory" ToRole="Accounts" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK_EventHistory_Candidate" FromRole="CandidateHistory" ToRole="Candidate" />
+        </EntityType>
+        <EntityType Name="EventHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Event_id" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_EventHistory_Accounts1" FromRole="EventHistory" ToRole="Accounts" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_EventHistory_Events" FromRole="EventHistory" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProgramCode_id" Type="Int32" Nullable="false" />
+          <Property Name="SubjectType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SST_id" Type="Int32" Nullable="false" />
+          <Property Name="FormatType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlanStartDate" Type="DateTime" Precision="0" />
+          <Property Name="PlanEndDate" Type="DateTime" Precision="0" />
+          <Property Name="PlanedExpense" Type="Double" />
+          <Property Name="BudgetCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualExpense" Type="Double" />
+          <Property Name="TrainingFeedBack" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrainingFeedBackContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrainingFeedBackOrganization" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EventStatus" Type="Int32" />
+          <Property Name="Faculty_of_University_id" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Site" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountDay" Type="Int32" />
+          <NavigationProperty Name="CampuslinkProgram" Relationship="Self.FK_Events_CampuslinkProgram" FromRole="Events" ToRole="CampuslinkProgram" />
+          <NavigationProperty Name="Candidate_in_Event" Relationship="Self.FK_Candidate_in_Event_Events" FromRole="Events" ToRole="Candidate_in_Event" />
+          <NavigationProperty Name="EventHistories" Relationship="Self.FK_EventHistory_Events" FromRole="Events" ToRole="EventHistory" />
+          <NavigationProperty Name="Faculty_of_University" Relationship="Self.FK_Events_Faculty_of_University" FromRole="Events" ToRole="Faculty_of_University" />
+          <NavigationProperty Name="Sub_Subject_Type" Relationship="Self.FK_Events_Sub_Subject_Type" FromRole="Events" ToRole="Sub_Subject_Type" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Faculty_of_University" Relationship="Self.FK_Faculty_of_University_Faculty" FromRole="Faculty" ToRole="Faculty_of_University" />
+        </EntityType>
+        <EntityType Name="Faculty_of_University">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Faculty_id" Type="Int32" Nullable="false" />
+          <Property Name="University_id" Type="Int32" Nullable="false" />
+          <Property Name="Cooperation_Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="Lv" Type="Int32" />
+          <NavigationProperty Name="Candidates" Relationship="Self.FK_Candidate_Faculty_of_University" FromRole="Faculty_of_University" ToRole="Candidate" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Faculty_of_University" FromRole="Faculty_of_University" ToRole="Events" />
+          <NavigationProperty Name="Faculty" Relationship="Self.FK_Faculty_of_University_Faculty" FromRole="Faculty_of_University" ToRole="Faculty" />
+          <NavigationProperty Name="University" Relationship="Self.FK_Faculty_of_University_University" FromRole="Faculty_of_University" ToRole="University" />
+        </EntityType>
+        <EntityType Name="Sub_Subject_Type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SST_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Sub_Subject_Type" FromRole="Sub_Subject_Type" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="University">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Site" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UniversityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UniversityCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HotKey" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Faculty_of_University" Relationship="Self.FK_Faculty_of_University_University" FromRole="University" ToRole="Faculty_of_University" />
+        </EntityType>
+        <Association Name="FK_Accounts_Authorities">
+          <End Role="Authorities" Type="Self.Authority" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authorities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="UserAuthority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_History_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Candidate_in_Event_History" Type="Self.Candidate_in_Event_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event_History">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="CandidateHistory" Type="Self.CandidateHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="CandidateHistory">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Accounts1">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="EventHistory" Type="Self.EventHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="EventHistory">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_CampuslinkProgram">
+          <End Role="CampuslinkProgram" Type="Self.CampuslinkProgram" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampuslinkProgram">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="ProgramCode_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Faculty_of_University">
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty_of_University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="Faculty_of_University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event">
+              <PropertyRef Name="Candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Candidate">
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="1" />
+          <End Role="CandidateHistory" Type="Self.CandidateHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CandidateHistory">
+              <PropertyRef Name="Candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_Events">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event">
+              <PropertyRef Name="Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_in_Event_History_Candidate_in_Event">
+          <End Role="Candidate_in_Event" Type="Self.Candidate_in_Event" Multiplicity="1" />
+          <End Role="Candidate_in_Event_History" Type="Self.Candidate_in_Event_History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate_in_Event">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Candidate_in_Event_History">
+              <PropertyRef Name="Cadidate_in_Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventHistory_Events">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventHistory" Type="Self.EventHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventHistory">
+              <PropertyRef Name="Event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Faculty_of_University">
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty_of_University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="Faculty_of_University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sub_Subject_Type">
+          <End Role="Sub_Subject_Type" Type="Self.Sub_Subject_Type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sub_Subject_Type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SST_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_of_University_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Faculty_of_University">
+              <PropertyRef Name="Faculty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faculty_of_University_University">
+          <End Role="University" Type="Self.University" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Faculty_of_University" Type="Self.Faculty_of_University" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="University">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Faculty_of_University">
+              <PropertyRef Name="University_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ECMDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Authorities" EntityType="Self.Authority" />
+          <EntitySet Name="CampuslinkPrograms" EntityType="Self.CampuslinkProgram" />
+          <EntitySet Name="Candidates" EntityType="Self.Candidate" />
+          <EntitySet Name="Candidate_in_Event" EntityType="Self.Candidate_in_Event" />
+          <EntitySet Name="Candidate_in_Event_History" EntityType="Self.Candidate_in_Event_History" />
+          <EntitySet Name="CandidateHistories" EntityType="Self.CandidateHistory" />
+          <EntitySet Name="EventHistories" EntityType="Self.EventHistory" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Faculties" EntityType="Self.Faculty" />
+          <EntitySet Name="Faculty_of_University" EntityType="Self.Faculty_of_University" />
+          <EntitySet Name="Sub_Subject_Type" EntityType="Self.Sub_Subject_Type" />
+          <EntitySet Name="Universities" EntityType="Self.University" />
+          <AssociationSet Name="FK_Accounts_Authorities" Association="Self.FK_Accounts_Authorities">
+            <End Role="Authorities" EntitySet="Authorities" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_History_Accounts" Association="Self.FK_Candidate_in_Event_History_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Candidate_in_Event_History" EntitySet="Candidate_in_Event_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Accounts" Association="Self.FK_EventHistory_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="CandidateHistory" EntitySet="CandidateHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Accounts1" Association="Self.FK_EventHistory_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="EventHistory" EntitySet="EventHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_CampuslinkProgram" Association="Self.FK_Events_CampuslinkProgram">
+            <End Role="CampuslinkProgram" EntitySet="CampuslinkPrograms" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Faculty_of_University" Association="Self.FK_Candidate_Faculty_of_University">
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_Candidate" Association="Self.FK_Candidate_in_Event_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Candidate" Association="Self.FK_EventHistory_Candidate">
+            <End Role="Candidate" EntitySet="Candidates" />
+            <End Role="CandidateHistory" EntitySet="CandidateHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_Events" Association="Self.FK_Candidate_in_Event_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_in_Event_History_Candidate_in_Event" Association="Self.FK_Candidate_in_Event_History_Candidate_in_Event">
+            <End Role="Candidate_in_Event" EntitySet="Candidate_in_Event" />
+            <End Role="Candidate_in_Event_History" EntitySet="Candidate_in_Event_History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventHistory_Events" Association="Self.FK_EventHistory_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventHistory" EntitySet="EventHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Faculty_of_University" Association="Self.FK_Events_Faculty_of_University">
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sub_Subject_Type" Association="Self.FK_Events_Sub_Subject_Type">
+            <End Role="Sub_Subject_Type" EntitySet="Sub_Subject_Type" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_of_University_Faculty" Association="Self.FK_Faculty_of_University_Faculty">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Faculty_of_University_University" Association="Self.FK_Faculty_of_University_University">
+            <End Role="University" EntitySet="Universities" />
+            <End Role="Faculty_of_University" EntitySet="Faculty_of_University" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ECMDB1ModelStoreContainer" CdmEntityContainer="ECMDBEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="ECMDB1Model.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="UserAuthority" ColumnName="UserAuthority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorities">
+            <EntityTypeMapping TypeName="ECMDB1Model.Authority">
+              <MappingFragment StoreEntitySet="Authorities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampuslinkPrograms">
+            <EntityTypeMapping TypeName="ECMDB1Model.CampuslinkProgram">
+              <MappingFragment StoreEntitySet="CampuslinkProgram">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CP_Name" ColumnName="CP_Name" />
+                <ScalarProperty Name="LearningTime" ColumnName="LearningTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="ECMDB1Model.Candidate">
+              <MappingFragment StoreEntitySet="Candidate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="National_id" ColumnName="National_id" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="GraduationDate" ColumnName="GraduationDate" />
+                <ScalarProperty Name="WorkingTimeAvaiable" ColumnName="WorkingTimeAvaiable" />
+                <ScalarProperty Name="Skill" ColumnName="Skill" />
+                <ScalarProperty Name="GPA" ColumnName="GPA" />
+                <ScalarProperty Name="Faculty_of_University_id" ColumnName="Faculty_of_University_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidate_in_Event">
+            <EntityTypeMapping TypeName="ECMDB1Model.Candidate_in_Event">
+              <MappingFragment StoreEntitySet="Candidate_in_Event">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Event_id" ColumnName="Event_id" />
+                <ScalarProperty Name="Candidate_id" ColumnName="Candidate_id" />
+                <ScalarProperty Name="GST_FollowUp" ColumnName="GST_FollowUp" />
+                <ScalarProperty Name="FinalGrade" ColumnName="FinalGrade" />
+                <ScalarProperty Name="CompletionLevel" ColumnName="CompletionLevel" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CandidateStatus" ColumnName="CandidateStatus" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="Certificate_id" ColumnName="Certificate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidate_in_Event_History">
+            <EntityTypeMapping TypeName="ECMDB1Model.Candidate_in_Event_History">
+              <MappingFragment StoreEntitySet="Candidate_in_Event_History">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Cadidate_in_Event_id" ColumnName="Cadidate_in_Event_id" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateHistories">
+            <EntityTypeMapping TypeName="ECMDB1Model.CandidateHistory">
+              <MappingFragment StoreEntitySet="CandidateHistory">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Candidate_id" ColumnName="Candidate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventHistories">
+            <EntityTypeMapping TypeName="ECMDB1Model.EventHistory">
+              <MappingFragment StoreEntitySet="EventHistory">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Event_id" ColumnName="Event_id" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="ECMDB1Model.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="ProgramCode_id" ColumnName="ProgramCode_id" />
+                <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+                <ScalarProperty Name="SST_id" ColumnName="SST_id" />
+                <ScalarProperty Name="FormatType" ColumnName="FormatType" />
+                <ScalarProperty Name="PlanStartDate" ColumnName="PlanStartDate" />
+                <ScalarProperty Name="PlanEndDate" ColumnName="PlanEndDate" />
+                <ScalarProperty Name="PlanedExpense" ColumnName="PlanedExpense" />
+                <ScalarProperty Name="BudgetCode" ColumnName="BudgetCode" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="ActualExpense" ColumnName="ActualExpense" />
+                <ScalarProperty Name="TrainingFeedBack" ColumnName="TrainingFeedBack" />
+                <ScalarProperty Name="TrainingFeedBackContent" ColumnName="TrainingFeedBackContent" />
+                <ScalarProperty Name="TrainingFeedBackOrganization" ColumnName="TrainingFeedBackOrganization" />
+                <ScalarProperty Name="EventStatus" ColumnName="EventStatus" />
+                <ScalarProperty Name="Faculty_of_University_id" ColumnName="Faculty_of_University_id" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="CountDay" ColumnName="CountDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculties">
+            <EntityTypeMapping TypeName="ECMDB1Model.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculty_of_University">
+            <EntityTypeMapping TypeName="ECMDB1Model.Faculty_of_University">
+              <MappingFragment StoreEntitySet="Faculty_of_University">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Faculty_id" ColumnName="Faculty_id" />
+                <ScalarProperty Name="University_id" ColumnName="University_id" />
+                <ScalarProperty Name="Cooperation_Start_Date" ColumnName="Cooperation_Start_Date" />
+                <ScalarProperty Name="Lv" ColumnName="Lv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sub_Subject_Type">
+            <EntityTypeMapping TypeName="ECMDB1Model.Sub_Subject_Type">
+              <MappingFragment StoreEntitySet="Sub_Subject_Type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SST_Name" ColumnName="SST_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Universities">
+            <EntityTypeMapping TypeName="ECMDB1Model.University">
+              <MappingFragment StoreEntitySet="University">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="UniversityName" ColumnName="UniversityName" />
+                <ScalarProperty Name="UniversityCode" ColumnName="UniversityCode" />
+                <ScalarProperty Name="HotKey" ColumnName="HotKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

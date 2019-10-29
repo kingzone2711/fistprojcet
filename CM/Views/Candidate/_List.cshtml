@@ -1,0 +1,113 @@
+﻿
+@model IEnumerable<CM.Models.Candidate>
+@using PagedList.Mvc;
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>_List</title>
+</head>
+<body>
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+
+		<table class="table">
+			<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.Account)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.National_id)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.CandidateName)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.DOB)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Gender)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Email)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Phone)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Facebook)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.GraduationDate)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.WorkingTimeAvaiable)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Skill)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.GPA)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Faculty_of_University.id)
+					</th>
+					<th></th>
+				
+				</tr>
+	@if(Model!=null)
+	{
+			foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Account)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.National_id)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CandidateName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DOB)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Gender)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Email)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Phone)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Facebook)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.GraduationDate)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.WorkingTimeAvaiable)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Skill)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.GPA)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Faculty_of_University.id)
+					</td>
+				
+				</tr>
+			}
+	}
+		</table>
+	
+</body>
+</html>

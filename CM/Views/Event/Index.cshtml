@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li>
+            <p>
+                
+                @Html.Hidden("page", (object)ViewBag.page)
+                @Html.Hidden("sortProperty", (object)ViewBag.sortProperty)
+                @Html.Hidden("sortOrder", (object)ViewBag.sortOrder)
+                @Html.Hidden("size", (object)ViewBag.pageSize)
+            </p>
+        </li>
+    </ol>
+
+
+</section>
+
+
+@*@{Html.RenderPartial("_CreateOrUpdate");}*@
+
+@{Html.RenderPartial("_SimpleReport");}
+
+@{Html.RenderPartial("_Search");}
+
+@{Html.RenderPartial("_List");}

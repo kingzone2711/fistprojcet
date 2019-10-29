@@ -1,0 +1,382 @@
+﻿
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/chart/exporting.js"></script>
+<script src="~/Scripts/chart/highcharts.js"></script>
+<div>
+    <section class="content-header">
+        <h1>
+            Báo Cáo Thống Kê
+            <small>Một số biểu đồ tròn và mẫu báo cáo. Có hỗ trợ chức năng tải về.</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="../../Home/Index"><i class="fa fa-home"></i> Trang Chủ</a></li>
+            <li class="active">Báo Cáo Thống Kê</li>
+        </ol>
+    </section>
+    <section class="content">
+        <h4><b>Biểu Đồ:</b></h4>
+        <div class="row">
+            <div class="col-md-6">
+
+                <!-- BAR CHART -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tỷ Lệ Các Chương Trình Của Các Lớp</h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool" data-toggle="dropdown"><i class="fa fa-list-alt"></i></button>
+                                <ul class="dropdown-menu panel-dropdown" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+        $.getJSON("/Statistics/GetData", function (data) {
+                        Highcharts.chart('bar-chart', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Tỷ lệ',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Contest Sponsor',
+                                    y: data.Sponsor
+                                    
+								},
+								//	{
+                                //    name: 'FSOFT TOUR',
+                                //    y: data.TOUR
+                                    
+									//},
+									{
+                                    name: 'Global Software Talent',
+                                        y: data.GST
+                                }, {
+                                    name: 'GST LITE',
+                                        y: data.LITE
+                                }, {
+                                    name: 'INTERNSHIP',
+                                        y: data.INTE
+                                }, {
+                                    name: 'JOBFAIR',
+                                        y: data.JOBFAIR
+                                    
+                                }, {
+                                    name: 'ONLINE',
+                                        y: data.ONLINE
+                                    
+                                }, {
+                                    name: 'REC',
+                                    y: data.REC
+                                }, {
+                                    name: 'SEMINAR',
+                                    y: data.SEMINAR
+                                }, {
+                                    name: 'THESIS',
+                                    y: data.THESIS
+                                }]
+                            }]
+                        });
+            });
+                        });
+
+                    </script>
+                    <!-- /.box-body -->
+                </div>
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tỷ Lệ Chuyển Hệ Của Internship</h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool" data-toggle="dropdown"><i class="fa fa-list-alt"></i></button>
+                                <ul class="dropdown-menu panel-dropdown" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="chuyen-he" style="height: 300px;"></div>
+                    </div>
+                    <script>
+                        Highcharts.chart('chuyen-he', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Tỷ lệ',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'BA2',
+                                    y: 1
+                                }, {
+                                    name: 'DEV1',
+                                    y: 11
+
+                                }, {
+                                    name: 'DEV2',
+                                    y: 4
+                                }, {
+                                    name: 'DEVE01',
+                                    y: 13
+                                }, {
+                                    name: 'EIPL01',
+                                    y: 20
+
+                                }, {
+                                    name: 'Fresher',
+                                    y: 152
+                                }, {
+                                    name: 'OJT',
+                                    y: 9
+                                }, {
+                                    name: 'Test2',
+                                    y: 1
+
+                                }]
+                            }]
+                        });
+                    </script>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tỷ Lệ Theo Trạng Thái Của Các Sự Kiện</h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool" data-toggle="dropdown"><i class="fa fa-list-alt"></i></button>
+                                <ul class="dropdown-menu panel-dropdown" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="event-status" style="height: 300px;"></div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+        $.getJSON("/Statistics/GetData", function (data) {
+                        Highcharts.chart('event-status', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Tỷ lệ',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Cancel',
+                                    y: data.ecancel
+                                }, {
+                                    name: 'Done',
+                                    y: data.edone
+                                }, {
+                                    name: 'Plan',
+                                    y: data.eplan
+                                }, {
+                                    name: 'On-going',
+                                    y: data.eon
+                                }]
+                            }]
+                        });
+            });
+                        });
+                    </script>
+                    <!-- /.box-body -->
+                </div>
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tỷ Lệ Theo Trạng Thái Của Thực Tập Sinh</h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool" data-toggle="dropdown"><i class="fa fa-list-alt"></i></button>
+                                <ul class="dropdown-menu panel-dropdown" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                        </div>
+                    </div>
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="fresher-status" style="height: 300px;"></div>
+                    </div>
+                    <script>
+                        Highcharts.chart('fresher-status', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Tỷ lệ',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Active',
+                                    y: 315
+                                }, {
+                                    name: 'Cancel',
+                                    y: 20
+                                }, {
+                                    name: 'Done',
+                                    y: 4
+                                }, {
+                                    name: 'Drop-out',
+                                    y: 3
+
+                                }, {
+                                    name: 'Failed',
+                                    y: 0
+                                }, {
+                                    name: 'Passed',
+                                    y: 34
+                                }]
+                            }]
+                        });
+                    </script>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <!-- /.box -->
+            <!-- /.col (RIGHT) -->
+        </div>
+        <!-- /.row -->
+        <div>
+            <h4><b>Một Số Mẫu Báo Cáo:</b></h4>
+            <div class="col-md-6">
+                <a href="../../Statistics/ReportCandidate">
+                    <div class="box box-primary">
+                        <p align="center">Theo Danh Sách Ứng Viên</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="../../Statistics/ReportEvent"><div class="box box-info"><p align="center">Theo Danh Sách Sự Kiện</p></div></a>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+
+

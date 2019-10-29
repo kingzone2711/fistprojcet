@@ -1,0 +1,21 @@
+﻿<section class="content-header">
+    <h1>
+        Báo Cáo Theo Ứng Viên
+        @*<small>Người dùng có thể chọn lọc các thông số qua filter. Có hỗ trợ chức năng tải về.</small>*@
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="../../Home/Index"><i class="fa fa-home"></i> Trang Chủ</a></li>
+        <li><a href="../../Statistics/Chart"><i class="fa fa-pie-chart"></i>Báo Cáo Thống Kê</a></li>
+        <li class="active">Báo Cáo Theo Ứng Viên</li>
+    </ol>
+</section>
+<div align="center">
+    <br />
+    <br />
+    @Html.ActionLink("Excel", "Report", new { ReportType = "Excel" }) |
+    @Html.ActionLink("PDF", "Report", new { ReportType = "PDF" }) |
+    @Html.ActionLink("Word", "Report", new { ReportType = "Word" }) |
+    @Html.ActionLink("Image", "Report", new { ReportType = "Image" })
+    <br />
+    <br />
+</div>

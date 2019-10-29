@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Campuslink Program";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{
+    Html.RenderAction("_List");
+}
+
+@*@{
+        Html.RenderAction("_CreateOrUpdate");
+    }*@
+
+@Html.Partial("~/Views/Shared/_DeleteModal.cshtml")

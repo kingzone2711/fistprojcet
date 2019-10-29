@@ -1,0 +1,176 @@
+﻿@model CM.Models.Event
+
+
+                @*//////////////////////*@
+                <div>
+                    <h4>Event</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CourseCode)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CourseCode)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SubjectType)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SubjectType)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FormatType)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.FormatType)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PlanStartDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PlanStartDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PlanEndDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PlanEndDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PlanedExpense)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PlanedExpense)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.BudgetCode)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.BudgetCode)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActualStartDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActualStartDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActualEndDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActualEndDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ActualExpense)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ActualExpense)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TrainingFeedBack)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TrainingFeedBack)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TrainingFeedBackContent)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TrainingFeedBackContent)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TrainingFeedBackOrganization)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TrainingFeedBackOrganization)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EventStatus)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EventStatus)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Note)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Note)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Site)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Site)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CountDay)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CountDay)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CampuslinkProgram.Code)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CampuslinkProgram.Code)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Faculty_of_University.id)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Faculty_of_University.id)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Sub_Subject_Type.SST_Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Sub_Subject_Type.SST_Name)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+                //////////////////////
+    

@@ -1,0 +1,44 @@
+﻿<div class="modal" id="DeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Delete @ViewBag.Title</h4>
+            </div>
+
+            <div class="modal-body">
+                Are you sure want to delete this @ViewBag.Title?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".delete").click(function () {
+            var id = $(this).attr("id");
+            var row = $(this).closest("tr");
+            $("#DeleteModal").modal({
+                backdrop: 'static',
+                keyboard: false
+            }).on("click", ".confirm", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Delete")",
+                    data: { id: id },
+                    dataType: "json",
+                    success: function () {
+                        row.remove();
+                        $("#DeleteModal").modal("toggle");
+                    }
+                });
+            });
+        });
+    });
+</script>

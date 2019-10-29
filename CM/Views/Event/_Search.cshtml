@@ -1,0 +1,69 @@
+﻿  <!-- search form -->
+<div class="box box-solid bg-light-blue">
+    <div class="box-header">
+        <!-- tools box -->
+        <div class="pull-right box-tools">
+            <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+        <!-- /. tools -->
+        <i class="fa fa-map-marker"></i>
+        <h3 class="box-title">
+            Search
+        </h3>
+    </div>
+    @*//////////////////////////////////////////////////////////////////////////////*@
+    <div class="box-body text-black">
+        @using (Html.BeginForm())
+        {
+            <p>
+
+                @*////////////////////////////////////////////////////////*@
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>CourseCode</label>
+                            <div>
+                                @Html.DropDownList("courseCode", new SelectList(ViewBag.CourseCode), "", new { @class = "form-control select2 select2-hidden-accessible" })
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>Site</label>
+
+                            @Html.DropDownList("site", new SelectList(ViewBag.Site), "", new { @class = "form-control select2 select2-hidden-accessible" })
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>SubjectType </label>
+                            @Html.DropDownList("subjectType", new SelectList(ViewBag.SubjectType), "", new { @class = "form-control select2 select2-hidden-accessible" })
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>EventStatus </label>
+                            <div class="form-group">
+                                @Html.DropDownList("eventStatus ", new SelectList(ViewBag.EventStatus), "", new { @class = "form-control select2 select2-hidden-accessible" })
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <!-- Date and time range -->
+ 
+                    </div>
+                    <!-- /.row -->
+                    <!-- /.form group -->
+                </div>
+                <br />
+                <br />
+                <input class="btn btn-success" type="submit" value="Search" />
+
+
+            </p>
+        }
+    </div>
+</div>
+@*//////////////////////////////SCRIPT/////////////////////////////////////*@

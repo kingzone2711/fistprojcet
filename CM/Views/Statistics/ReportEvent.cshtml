@@ -1,0 +1,171 @@
+﻿@model IEnumerable<CM.Models.Event>
+
+@{
+    ViewBag.Title = "ReportEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Báo Cáo Theo Ứng Viên
+        @*<small>Người dùng có thể chọn lọc các thông số qua filter. Có hỗ trợ chức năng tải về.</small>*@
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="../../Home/Index"><i class="fa fa-home"></i> Trang Chủ</a></li>
+        <li><a href="../../Statistics/Chart"><i class="fa fa-pie-chart"></i>Báo Cáo Thống Kê</a></li>
+        <li class="active">Báo Cáo Theo Ứng Viên</li>
+    </ol>
+</section>
+<div align="center">
+    <br />
+    <br />
+    <h4>Tải Về:</h4>
+    @Html.ActionLink("Excel", "Reports", new { ReportType = "Excel" }) |
+    @Html.ActionLink("PDF", "Reports", new { ReportType = "PDF" }) |
+    @Html.ActionLink("Word", "Reports", new { ReportType = "Word" }) |
+    @Html.ActionLink("Image", "Reports", new { ReportType = "Image" })
+    <br />
+    <br />
+</div>
+<div style="overflow-x:auto;">
+    <table id="example2" class="table table-bordered table-striped w-auto">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubjectType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FormatType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlanStartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlanEndDate)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.PlanedExpense)
+                    </th>*@
+                @*<th>
+                        @Html.DisplayNameFor(model => model.BudgetCode)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.ActualStartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActualEndDate)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.ActualExpense)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrainingFeedBack)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrainingFeedBackContent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrainingFeedBackOrganization)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.EventStatus)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Site)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CountDay)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CampuslinkProgram.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Faculty_of_University.id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sub_Subject_Type.SST_Name)
+                    </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubjectType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FormatType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlanStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlanEndDate)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.PlanedExpense)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BudgetCode)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActualStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActualEndDate)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.ActualExpense)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrainingFeedBack)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrainingFeedBackContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrainingFeedBackOrganization)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventStatus)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Site)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CountDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CampuslinkProgram.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Faculty_of_University.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sub_Subject_Type.SST_Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+</div>

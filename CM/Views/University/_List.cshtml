@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CM.Models.University>
+
+@{
+    Layout = null;
+    IEnumerable<CM.Models.Faculty_of_University> Faculty_of_University = ViewData["Faculty_of_University"] as IEnumerable<CM.Models.Faculty_of_University>;
+}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("_CreateOrUpdate")'">Create</button>
+        </h3>
+    </div>
+    <div class="box-body no-padding">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 90px">Action</th>
+                    <th>@Html.DisplayNameFor(model => model.Site)</th>
+                    <th>@Html.DisplayNameFor(model => model.UniversityName)</th>
+                    <th>@Html.DisplayNameFor(model => model.UniversityCode)</th>
+                    <th>@Html.DisplayNameFor(model => model.HotKey)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width: 90px">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("_CreateOrUpdate", new { id = item.id })'" style="width: 35px">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            @{
+                                bool check = true;
+                                foreach (var i in Faculty_of_University)
+                                {
+                                    if (i.University_id == item.id)
+                                    {
+                                        check = false;
+                                        break;
+                                    }
+                                }
+                                if (check)
+                                {
+                                    <button type="button" class="btn btn-danger btn-sm delete" id="@item.id" style="width: 35px">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Site)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UniversityName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UniversityCode)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HotKey)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
